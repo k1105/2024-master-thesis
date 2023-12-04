@@ -1,0 +1,320 @@
+%--------------------------------------------------------------%
+%   Style File for The Master Thesis                           %
+%   at Inteligent System Design Laboratory, Doshisha Univ.     %
+%--------------------------------------------------------------%
+%   $Id: masterthesis.sty,v 1.1.1.1 2004/06/19 10:08:08 junjis Exp $
+%--------------------------------------------------------------%
+% ver 1.5以降は jreport.clsを使用すること．
+
+% 2021/10/18 タイトル等の def を追加（by 加納 at TUS）
+
+%--------------------------------------------------------------
+%インクルードするパッケージ
+%--------------------------------------------------------------
+\usepackage{sty/mikibase}
+
+%--------------------------------------------------------------
+%ページレイアウトの再定義（一段組のみ）
+%--------------------------------------------------------------
+\topmargin=-0.2cm
+\headheight=0cm
+\headsep=0cm  \footskip=0cm
+\oddsidemargin=-0.04cm \evensidemargin=-0.04cm
+\textheight=24.7cm  \textwidth=16.5cm
+\footskip=1.5cm
+\topmargin=-0.04cm
+
+
+%--------------------------------------------------------------
+%行送りの再定義
+%--------------------------------------------------------------
+\renewcommand{\baselinestretch}{1.2}
+
+
+%--------------------------------------------------------------
+%abstract環境の再定義
+%--------------------------------------------------------------
+\renewenvironment{abstract}
+{%
+\thispagestyle{empty}
+\begin{center}%
+\bigskip%
+\begin{minipage}{15cm}%
+\setlength{\parindent}{7mm}%
+{
+	\begin{center}%
+	\Large\bfseries Abstract%
+	\end{center}%
+}
+}%
+{%
+\end{minipage}%
+\end{center}%
+\newpage
+}
+
+
+
+%--------------------------------------------------------------
+%目次の再定義
+%--------------------------------------------------------------
+\setcounter{tocdepth}{1}
+
+%--------------------------------------------------------------
+%chapterの再定義
+%--------------------------------------------------------------
+%\renewcommand{\chapter}{%
+%	\@startsection{chapter}{1}{\z@}%
+%	{1.0\Cvs \@plus.5\Cdp \@minus.2 \Cdp}%
+%	{.5\Cvs \@plus.3\Cdp}%
+%	{\reset@font\LARGE\bfseries }}
+
+
+
+%--------------------------------------------------------------
+%sectionの再定義
+%--------------------------------------------------------------
+\renewcommand{\section}{%
+	\@startsection{section}{1}{\z@}%
+	{1.0\Cvs \@plus.5\Cdp \@minus.2 \Cdp}%
+	{.5\Cvs \@plus.3\Cdp}%
+	{\reset@font\large\bfseries}}
+
+%--------------------------------------------------------------
+%subsectionの再定義
+%--------------------------------------------------------------
+\renewcommand{\subsection}{%
+	\@startsection{subsection}{1}{\z@}%
+	{.5\Cvs \@plus.5\Cdp \@minus.2 \Cdp}%
+	{.2\Cvs \@plus.3\Cdp}%
+	{\reset@font\bfseries}}
+
+%--------------------------------------------------------------
+%subsubsectionの再定義
+%--------------------------------------------------------------
+\renewcommand{\subsubsection}{%
+	\@startsection{subsubsection}{1}{\z@}%
+	{.2\Cvs \@plus.5\Cdp \@minus.2 \Cdp}%
+	{.1\Cvs \@plus.3\Cdp}%
+	{\reset@font\bfseries}}
+%\renewcommand{\thesection}{\@Roman\c@section}%
+
+
+
+%--------------------------------------------------------------
+%enumerate環境における番号付けの再定義
+%--------------------------------------------------------------
+\renewcommand{\labelenumi}{（\theenumi）}
+
+
+
+%--------------------------------------------------------------
+%その他の見出しの再定義
+%--------------------------------------------------------------
+\renewcommand{\bibname}{参考文献}
+\renewcommand{\listfigurename}{図 目 次}
+\renewcommand{\listtablename}{表 目 次}
+
+
+
+%--------------------------------------------------------------
+%図及び数式の番号付けの再定義
+%--------------------------------------------------------------
+%\renewcommand{\thetable}{\@arabic\c@table}
+%\renewcommand{\thetable}{\@arabic\c@chapter.\@arabic\c@table}
+%\renewcommand{\theequation}{\@arabic\c@equation}
+
+
+% tableの番号付けの変更
+% 本文中なら Table 1.1のように，付録なら Table 1 のようにする．
+\renewcommand{\thetable}{%
+  \ifnum\c@chapter>\z@\thechapter.\fi\@arabic\c@table}
+
+
+%\renewcommand{\theequation}{%
+%  \ifnum\c@equation>\z@\thechapter.\fi\@arabic\c@equation}
+  
+
+%--------------------------------------------------------------
+%キャプションの：を削除．図をFig,表をTableに
+%--------------------------------------------------------------
+\long\def\@makecaption#1#2{%
+  \vskip\abovecaptionskip
+  \iftdir\sbox\@tempboxa{#1\hskip1zw#2}%
+    \else\sbox\@tempboxa{#1\hskip1zw #2}%
+  \fi
+  \ifdim \wd\@tempboxa >\hsize
+    \iftdir #1\hskip1zw#2\relax\par
+      \else #1\hskip1zw #2\relax\par\fi
+  \else
+    \global \@minipagefalse
+    \hbox to\hsize{\hfil\box\@tempboxa\hfil}%
+  \fi
+  \vskip\belowcaptionskip}
+
+%\renewcommand{\figurename}{Fig.}
+%\renewcommand{\tablename}{Table}
+
+%\renewcommand{\figurename}{図}
+%\renewcommand{\tablename}{表}
+
+\renewcommand{\figurename}{{図}}
+\renewcommand{\tablename}{{表}}
+
+%\newcommand{\tablename}}[1]{\textbf{表\ref{#1}}}
+%\newcommand{\figurename}[1]{\textbf{図\ref{#1}}}
+
+
+%--------------------------------------------------------------
+%図及び数式の参照の定義
+%--------------------------------------------------------------
+%\def\fgref#1{\figurename\hskip1ex \ref{#1}}
+%\def\tbref#1{\tablename\hskip1ex \ref{#1}}
+\def\eqref#1{式(\ref{#1})}
+
+\def\fgref#1{\figurename\hskip1ex {\ref{#1}}}
+\def\tbref#1{\tablename\hskip1ex {\ref{#1}}}
+
+
+%--------------------------------------------------------------
+% 謝辞環境
+%--------------------------------------------------------------
+
+\newenvironment{gratitude}
+{
+	\newpage
+	\chapter*{謝辞}
+}
+{
+	\newpage
+}
+
+%--------------------------------------------------------------
+% 表紙用
+%--------------------------------------------------------------
+
+\newcommand{\年度}[1]{\gdef\年度{#1}}
+\newcommand{\邦文題目}[1]{\gdef\邦文題目{#1}}
+\newcommand{\英文題目}[1]{\gdef\英文題目{#1}}
+\newcommand{\指導教員}[1]{\gdef\指導教員{#1}}
+\newcommand{\氏名}[1]{\gdef\氏名{#1}}
+\newcommand{\学籍番号}[1]{\gdef\学籍番号{#1}}
+
+\newcommand{\表紙出力}{
+\thispagestyle{empty}
+\ \vspace*{15mm} \
+\begin{center}
+ {\fontsize{26pt}{20pt}\selectfont 卒　業　研　究　論　文}
+\end{center}
+
+\ \vspace*{10mm} \
+\begin{center}
+ {\fontsize{18pt}{20pt}\selectfont {\年度}年度}
+\end{center}
+\ \vspace*{20mm} \
+
+\fontsize{20pt}{20pt}\selectfont
+
+\begin{flushleft}
+
+ \begin{tabular}{p{5zw}p{17.8zw}}
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \makebox[4zw][s]{題　　目} &\begin{tabular}{p{17zw}}{\邦文題目}\end{tabular} \\ \cline{2-2}  \\
+  \\
+  \makebox[4zw][s]{英文題目} & \begin{tabular}{p{17zw}}{\英文題目}\end{tabular} \\ \cline{2-2}  \\
+  \\
+  \makebox[4zw][s]{指導教員} & \begin{tabular}{p{17zw}}{\指導教員}\end{tabular} \\ \cline{2-2}\\
+  \makebox[4zw][s]{氏　　名}& \begin{tabular}{p{17zw}}{\氏名}\end{tabular} \\ \cline{2-2}  \\
+  \makebox[4zw][s]{学籍番号}&  \begin{tabular}{p{17zw}}{\学籍番号}\end{tabular} \\ \cline{2-2} \\
+
+ \end{tabular}
+\end{flushleft}
+\vfill
+\begin{center}
+ \fontsize{14pt}{8pt}\selectfont
+ 東京理科大学　工学部　情報工学科
+\end{center}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setcounter{page}{0}
+\clearpage
+\normalsize
+\renewcommand{\baselinestretch}{1}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+}
+
+%--------------------------------------------------------------
+% 要旨用
+%--------------------------------------------------------------
+
+\newcommand{\要旨}[1]{\gdef\要旨{#1}}
+\newcommand{\英文要旨}[1]{\gdef\英文要旨{#1}}
+
+\newcommand{\要旨出力}{
+
+\thispagestyle{empty}
+\ \vspace*{15mm} \
+\begin{center}
+ {\fontsize{26pt}{20pt}\selectfont 卒業論文要旨}
+\end{center}
+
+\ \vspace*{20mm} \
+
+\fontsize{12}{20pt}\selectfont
+
+
+\noindent\hspace{1zw}\textbf{要旨}\\\hspace*{1zw}{\要旨}
+
+\ \vspace*{10mm} \
+
+\noindent\hspace{1zw}\textbf{Abstract}\\\hspace*{1zw}{\英文要旨}
+\vfill
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setcounter{page}{0}
+\clearpage
+\normalsize
+\renewcommand{\baselinestretch}{1}
+\fontsize{10}{18pt}\selectfont
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+}
+
+%----------------------------------------------------------------------
+% 目次用コマンドの定義
+%----------------------------------------------------------------------
+
+\def\contents{
+	\pagenumbering{roman}
+	\tableofcontents
+	\newpage
+	\pagenumbering{arabic}
+}
+
+%--------------------------------------------------------------
+% 付図のページ
+%--------------------------------------------------------------
+% 引数が0のときは図のみ，1の時は表も
+
+\def\appendixpage#1{
+	\newpage
+	%\appendix
+	\clearpage
+	\pagenumbering{Roman}
+	\listoffigures
+	\ifnum#1=1
+		\listoftables
+	\fi
+	\clearpage
+	\pagenumbering{arabic}
+}
+
+
+
+%--------------------------------------------------------------
+%引用記号の再定義
+%--------------------------------------------------------------
+%LaTeX階梯　p.206
+
+\def\@biblabel#1{#1)}
+\def\@cite#1#2{{$^{\mbox{\scriptsize $#1$}}$%
+	\if@tempswa , #2\fi}$^{\mbox{\scriptsize $)$}}$ }
+
+

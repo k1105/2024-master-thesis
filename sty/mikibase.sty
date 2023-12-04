@@ -1,0 +1,61 @@
+%--------------------------------------------------------------%
+%	Style File for Style files "mikibase"     		           %
+%	at Inteligent System Design Laboratory, Doshisha Univ.	   %
+%   Designed by  LaTeX Team (Jun-ichi YOSHIDA/junichi@mikilab) %
+%   Redesigned by LaTeX Team 2002(Takanori MIZUTA/taka@mikilab)%
+%
+%--------------------------------------------------------------
+%include style files
+%--------------------------------------------------------------
+
+\usepackage{multicol}
+\usepackage{epsf}
+\usepackage{graphics}
+\usepackage{boxedminipage}
+\usepackage{epsfig}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{ascmac}
+\usepackage{enumerate}
+\usepackage{url} % added 2.1
+
+%--------------------------------------------------------------
+%tbcaptionÆfgcaptionÌè`
+%--------------------------------------------------------------
+
+\def\tbcaption{\def\@captype{table}\caption}
+\def\fgcaption{\def\@captype{figure}\caption}
+
+\def\term#1{
+	{\bf #1}
+}
+
+\def\path#1{
+	\texttt{#1}
+}
+
+%--------------------------------------------------------------
+% oT
+%--------------------------------------------------------------
+% _¶ÌoTðLqµÜ·DbibTeXÌ¶£f[^x[Xì¬ÉKvÈÚð·×
+% Ä½·æ¤ÉÓµÄ­¾³¢i^CgâÒ¼Í­jD
+% \src{0}{}Æ·éÆ\¦³êÜ¹ñD\src{1}{}Æ·éÆ\¦³êÜ·D
+
+\def\src#1#2{
+\ifnum#1=0%
+\else%
+\newpage
+\thispagestyle{empty}
+\noindent{\bf oTF}\\
+#2\\
+
+
+\noindent{\bf â¢í¹æF}\\
+{\small 
+
+}\\
+\noindent \\
+
+\fi
+}
+
